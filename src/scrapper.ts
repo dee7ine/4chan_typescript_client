@@ -1,4 +1,4 @@
-const PROJECT_NAME = 'redactle-open-source-clone';
+const PROJECT_NAME: string = 'redactle-open-source-clone';
 
 const API_URL: string = "https://en.wikipedia.org/w/api.php";
 const API_PARAMS: Map<string, string> = {
@@ -27,18 +27,29 @@ abstract class Params{
     common_words_uppercase: Array<string> = this.common_words.map(function(x){ return x.toUpperCase(); }); 
     common_words_lowercase: Array<string> = this.common_words.map(function(x){ return x.toLowerCase(); });
     separators: Array<string> = [' ', '-', '.', ',', '(', ')', '[', ']', ':', '\n', '\t'];
-    words = this.common_words.concat(this.common_words_lowercase, this.common_words_uppercase, this.separators);
+    words: Array<string> = this.common_words.concat(this.common_words_lowercase, this.common_words_uppercase, this.separators);
 }
 
 class BaseWikiScrapper extends Params{
     article_title: string = '';
     article_content: string = '';
     
+    constructor(article_title: string, article_content: string){
+        super();
+        this.article_title = article_title;
+        this.article_content = article_content
+    }
+    
 }
 
 class WikiScrapper extends BaseWikiScrapper{
 
     filtered_content:string = '';
+
+    constructor(article_content: string, article_title: string){
+        super(article_content, article_title)
+
+    }
 
 }
 
