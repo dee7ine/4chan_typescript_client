@@ -13,7 +13,7 @@ type GetUsersResponse = {
 // TODO
 // modify to scrape data from 4chan 
 
-async function getUsers() {
+async function getUsers(): Promise<GetUsersResponse | string> {
     try{
         const response = await fetch('https://reqres.in/api/users', {
             method: 'GET',
