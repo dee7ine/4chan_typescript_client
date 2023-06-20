@@ -30,7 +30,7 @@ export async function getThread(board: string, thread: number | string){
 } 
 }
 
-type Post = {
+type BasicPost = {
     "no": number,
     "now": string,
     "name": string,
@@ -48,8 +48,8 @@ type Post = {
     "resto": number
 }
 
-type ThreadData = {
-    data: Post[];
+type BasicThreadData = {
+    data: BasicPost[];
 }
 
 export class ThreadScrapper{
