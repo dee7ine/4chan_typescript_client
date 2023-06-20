@@ -1,12 +1,7 @@
 import fetch from 'node-fetch';
 
-let boards: Array<string> = [
-    'po', 
-    'fit',
-]
-
-const board = <string> 'g';
-const thread = <number> 94183341;
+const board = <string> 'wg';
+const thread = <number> 7990743;
 
 console.log(`https://a.4cdn.org/${board}/thread/${thread}.json`);
 
@@ -35,23 +30,45 @@ export async function getThread(board: string, thread: number | string){
 } 
 }
 
+type Post = {
+    "no": number,
+    "now": string,
+    "name": string,
+    "com": string,
+    "filename": string,
+    "ext": string,
+    "w": number,
+    "h": number,
+    "tn_w": number,
+    "tn_h": number,
+    "tim": number,
+    "time": number,
+    "md5": string,
+    "fsize": number,
+    "resto": number
+}
+
+type ThreadData = {
+    data: Post[];
+}
+
 export class ThreadScrapper{
-    _board: string = ''
-    _thread: number | string = ''
+    _board: string = '';
+    _thread: number | string = '';
 
     constructor(board: string, thread: string | number) {
         this._board = board;
         this._thread = thread;
     };
 
-    async getThread(): Promise<unknown |object | string> {
+    async getThread(): Promise<Post |object | string> {
         try {
             const response = await fetch(`https://a.4cdn.org/${this._board}/thread/${this._thread}.json`)
             if (!response.ok) {
                 throw new Error(`Error! status: ${response.status} `);
             }
-            const result = await response.json()
-            console.log('result: ', JSON.stringify(result, null, 4));
+            const result = await (response.json()) as ThreadData;
+            console.log(`Thread ${this._thread}: `, JSON.stringify(result, null, 4));
             return result;
         } catch (error) {
             if (error instanceof Error) {
