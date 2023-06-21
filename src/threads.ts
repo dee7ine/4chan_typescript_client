@@ -61,14 +61,17 @@ export class ThreadScrapper{
         this._thread = thread;
     };
 
-    async getThread(): Promise<Post |object | string> {
+    async getThread(log?: boolean): Promise<BasicThreadData |object | string> {
         try {
             const response = await fetch(`https://a.4cdn.org/${this._board}/thread/${this._thread}.json`)
             if (!response.ok) {
                 throw new Error(`Error! status: ${response.status} `);
             }
-            const result = await (response.json()) as ThreadData;
-            console.log(`Thread ${this._thread}: `, JSON.stringify(result, null, 4));
+            const result = await (response.json()) as BasicThreadData;
+            if (log){
+                console.log(`Thread ${this._thread}: `, JSON.stringify(result, null, 4));
+            }
+            
             return result;
         } catch (error) {
             if (error instanceof Error) {
@@ -82,7 +85,6 @@ export class ThreadScrapper{
     }
 }
 
-//getThread(board, thread)
-
-let ts = new ThreadScrapper(board, thread).getThread()
-console.log(ts)
+let ts = new ThreadScrapper(board, thread)
+let t = ts.getThread(true)
+console.log(t)
