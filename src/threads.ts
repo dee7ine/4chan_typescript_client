@@ -48,7 +48,7 @@ export type BasicPost = {
     "resto": number
 }
 
-export type BasicThreadData = {
+export type BasicThread = {
     data: BasicPost[];
 }
 
@@ -60,15 +60,21 @@ export class ThreadScrapper{
         this._board = board;
         this._thread = thread;
     };
-
-    async getThread(log?: boolean): Promise<BasicThreadData |object | string> {
+    
+    /**
+     * Retrieves thread information json
+     * @param {number} a
+     * @param {number} b
+     * @returns {number}
+     */
+    async getThread(log?: boolean): Promise<BasicThread |object | string> {
         try {
             const response = await fetch(`https://a.4cdn.org/${this._board}/thread/${this._thread}.json`)
             if (!response.ok) {
                 throw new Error(`Error! status: ${response.status} `);
             }
-            const result = await (response.json()) as BasicThreadData;
-            if (log){
+            const result = await (response.json()) as BasicThread;
+            if (log) {
                 console.log(`Thread ${this._thread}: `, JSON.stringify(result, null, 4));
             }
             
