@@ -30,7 +30,7 @@ export async function getThread(board: string, thread: number | string){
 } 
 }
 
-type BasicPost = {
+export type BasicPost = {
     "no": number,
     "now": string,
     "name": string,
@@ -48,7 +48,7 @@ type BasicPost = {
     "resto": number
 }
 
-type BasicThreadData = {
+export type BasicThreadData = {
     data: BasicPost[];
 }
 
