@@ -63,9 +63,10 @@ export class ThreadScrapper{
     
     /**
      * Retrieves thread information json
-     * @param {number} a
-     * @param {number} b
-     * @returns {number}
+     * 
+     *
+     * @returns {Promise<BasicThread | object | string>}
+     * @throws {Error}
      */
     async getThread(log?: boolean): Promise<BasicThread |object | string> {
         try {
