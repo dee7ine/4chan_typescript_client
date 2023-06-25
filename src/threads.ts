@@ -5,10 +5,6 @@ const thread = <number> 7990743;
 
 console.log(`https://a.4cdn.org/${board}/thread/${thread}.json`);
 
-// const response = await fetch(`https://a.4cdn.org/${board}/thread/${thread}.json`);
-// const data = await response.json();
-// console.log(data)
-
 export async function getThread(board: string, thread: number | string){
 /**
    * Returns the average of two numbers.
