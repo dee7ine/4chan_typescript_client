@@ -3,8 +3,6 @@ import fetch from 'node-fetch';
 const board = <string> 'wg';
 const thread = <number> 7990743;
 
-console.log(`https://a.4cdn.org/${board}/thread/${thread}.json`);
-
 export async function getThread(board: string, thread: number | string){
 /**
    * Returns the average of two numbers.
