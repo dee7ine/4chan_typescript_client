@@ -22,7 +22,6 @@ export async function getThread(board: string, thread: number | string){
             throw new Error(`Error! status: ${response.status} `);
         }
         const result = await response.json()
-        console.log(typeof(result))
         //console.log('result: ', JSON.stringify(result, null, 4));
         return result;
     } catch (error) {
@@ -59,8 +58,8 @@ export type BasicThread = {
 }
 
 export class ThreadScrapper{
-    _board: string = '';
-    _thread: number | string = '';
+    protected _board: string = '';
+    protected _thread: number | string = '';
 
     constructor(board: string, thread: string | number) {
         this._board = board;
@@ -73,7 +72,7 @@ export class ThreadScrapper{
      * @returns {Promise<BasicThread | object | string>}
      * @throws {Error}
      */
-    async getThread(log?: boolean): Promise<BasicThread | string> {
+    public async getThread(log?: boolean): Promise<BasicThread | string> {
         try {
             const response = await fetch(`https://a.4cdn.org/${this._board}/thread/${this._thread}.json`)
             if (!response.ok) {
