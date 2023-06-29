@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 declare module 'boards'
 
-export type BoardInfo = {
+export type BoardAttributes = {
     'board': string,
     'title': string,
     'ws_board': number,
@@ -21,7 +21,11 @@ export type BoardInfo = {
 }
 
 export type Boards = {
-    data: BoardInfo[];
+    data: BoardAttributes[];
+}
+
+export type CatalogAttributes  = {
+
 }
 
 export class AbstractBoardScrapper {
@@ -53,6 +57,22 @@ export class AbstractBoardScrapper {
             }
     } 
     }
+}
+
+export class AbsractCatalogScrapper {
+    protected _board: string = '';
+
+    constructor(board: string, thread: string | number) {
+        this._board = board;
+    };
+    /**
+     * Retrieves all boards information as json
+     * @param {boolean} [log = false] - log to console
+     *
+     * @returns {Promise<BasicBoard | string>}
+     * @throws {Error}
+     */
+
 }
 
 let ts = new AbstractBoardScrapper()

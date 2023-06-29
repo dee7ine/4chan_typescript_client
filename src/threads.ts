@@ -6,7 +6,7 @@ const board = <string> 'wg';
 const thread = <number> 7990743;
 
 // basic type for post info 
-export type BasicPost = {
+export type PostAttributes = {
     "no": number,
     "now": string,
     "name": string,
@@ -25,7 +25,7 @@ export type BasicPost = {
 }
 // thread info wrapper 
 export type BasicThread = {
-    data: BasicPost[];
+    data: PostAttributes[];
 }
 
 export class AbstractThreadScrapper {
