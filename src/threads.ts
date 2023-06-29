@@ -1,39 +1,10 @@
 import fetch from 'node-fetch';
 
+declare module 'threads';
+
 const board = <string> 'wg';
 const thread = <number> 7990743;
 
-export async function getThread(board: string, thread: number | string){
-/**
-   * Returns the average of two numbers.
-   *
-   * @remarks
-   * Thread fetcher function
-   *
-   * @param x - board
-   * @param y - The second input number
-   * @returns The arithmetic mean of `x` and `y`
-   *
-   * @beta
-   */
-    try {
-        const response = await fetch(`https://a.4cdn.org/${board}/thread/${thread}.json`)
-        if (!response.ok) {
-            throw new Error(`Error! status: ${response.status} `);
-        }
-        const result = await response.json()
-        //console.log('result: ', JSON.stringify(result, null, 4));
-        return result;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.log('error message: ', error.message);
-            return error.message;
-        } else {
-            console.log('unexpected error:', error);
-            return 'An unexpected erorr occurred.';
-        }
-} 
-}
 // basic type for post info 
 export type BasicPost = {
     "no": number,
@@ -57,7 +28,7 @@ export type BasicThread = {
     data: BasicPost[];
 }
 
-export class ThreadScrapper{
+export class AbstractThreadScrapper {
     protected _board: string = '';
     protected _thread: number | string = '';
 
@@ -69,7 +40,7 @@ export class ThreadScrapper{
      * Retrieves thread information as json
      * @param {boolean} [log = false] - log to console
      *
-     * @returns {Promise<BasicThread | object | string>}
+     * @returns {Promise<BasicThread | string>}
      * @throws {Error}
      */
     public async getThread(log?: boolean): Promise<BasicThread | string> {
@@ -96,6 +67,6 @@ export class ThreadScrapper{
     }
 }
 
-let ts = new ThreadScrapper(board, thread)
+let ts = new AbstractThreadScrapper(board, thread)
 let t = ts.getThread(true)
 console.log(t)
