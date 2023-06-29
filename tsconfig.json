@@ -11,7 +11,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
         "paths": {
-            "*":["./*"],
+            //"*":["./*"],
+            "@/*": ["*"],
           },
 		
 		"noEmit": true,
@@ -26,5 +27,5 @@
 		".vscode/",
 		"dist/"
 	],
-	"include": [ "src/**/*" ]
+	"include": [ "src/**/*", "test/threads.test.ts" ]
 }  
