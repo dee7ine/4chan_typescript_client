@@ -3,20 +3,25 @@ import fetch from 'node-fetch';
 const board = <string> 'wg';
 const thread = <number> 7990743;
 
-console.log(`https://a.4cdn.org/${board}/thread/${thread}.json`);
-
-// const response = await fetch(`https://a.4cdn.org/${board}/thread/${thread}.json`);
-// const data = await response.json();
-// console.log(data)
-
 export async function getThread(board: string, thread: number | string){
+/**
+   * Returns the average of two numbers.
+   *
+   * @remarks
+   * Thread fetcher function
+   *
+   * @param x - board
+   * @param y - The second input number
+   * @returns The arithmetic mean of `x` and `y`
+   *
+   * @beta
+   */
     try {
         const response = await fetch(`https://a.4cdn.org/${board}/thread/${thread}.json`)
         if (!response.ok) {
             throw new Error(`Error! status: ${response.status} `);
         }
         const result = await response.json()
-        console.log(typeof(result))
         //console.log('result: ', JSON.stringify(result, null, 4));
         return result;
     } catch (error) {
@@ -29,7 +34,7 @@ export async function getThread(board: string, thread: number | string){
         }
 } 
 }
-
+// basic type for post info 
 export type BasicPost = {
     "no": number,
     "now": string,
@@ -47,28 +52,27 @@ export type BasicPost = {
     "fsize": number,
     "resto": number
 }
-
+// thread info wrapper 
 export type BasicThread = {
     data: BasicPost[];
 }
 
 export class ThreadScrapper{
-    _board: string = '';
-    _thread: number | string = '';
+    protected _board: string = '';
+    protected _thread: number | string = '';
 
     constructor(board: string, thread: string | number) {
         this._board = board;
         this._thread = thread;
     };
-    
     /**
-     * Retrieves thread information json
-     * 
+     * Retrieves thread information as json
+     * @param {boolean} [log = false] - log to console
      *
      * @returns {Promise<BasicThread | object | string>}
      * @throws {Error}
      */
-    async getThread(log?: boolean): Promise<BasicThread |object | string> {
+    public async getThread(log?: boolean): Promise<BasicThread | string> {
         try {
             const response = await fetch(`https://a.4cdn.org/${this._board}/thread/${this._thread}.json`)
             if (!response.ok) {
