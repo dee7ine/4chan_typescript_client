@@ -25,6 +25,12 @@ export type Boards = {
 }
 
 export type CatalogAttributes  = {
+    'page': number,
+    'threads': string
+
+}
+
+export type Catalog = {
 
 }
 
@@ -59,19 +65,40 @@ export class AbstractBoardScrapper {
     }
 }
 
-export class AbsractCatalogScrapper {
+export class AbstractCatalogScrapper {
     protected _board: string = '';
 
     constructor(board: string, thread: string | number) {
         this._board = board;
     };
     /**
-     * Retrieves all boards information as json
+     * Retrieves board catalog information as json
      * @param {boolean} [log = false] - log to console
      *
      * @returns {Promise<BasicBoard | string>}
      * @throws {Error}
      */
+    public async getCatalog(log?: boolean): Promise<Catalog | string> {
+        try {
+            const response = await fetch(`https://a.4cdn.org/${this._board}/catalog.json`)
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status} `);
+            }
+            const result = await (response.json()) as Catalog;
+            if (log) {
+                console.log(`Boards: `, JSON.stringify(result, null, 4));
+            }
+            return result;
+        } catch (error) {
+            if (error instanceof Error) {
+                console.log('error message: ', error.message);
+                return error.message;
+            } else {
+                console.log('unexpected error:', error);
+                return 'An unexpected erorr occurred.';
+            }
+    } 
+    }
 
 }
 
