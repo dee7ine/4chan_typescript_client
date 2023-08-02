@@ -31,7 +31,7 @@ export type CatalogAttributes  = {
 }
 
 export type Catalog = {
-
+    'board': string
 }
 
 export class AbstractBoardScrapper {
